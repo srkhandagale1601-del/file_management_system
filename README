@@ -1,0 +1,46 @@
+# File Management System
+
+A backend API for managing files and folders.
+
+## Tech Stack
+
+- Node.js
+- Express.js
+- TypeScript
+- Prisma
+- PostgreSQL
+
+## Folder Structure
+
+```text
+src/
+├── config/
+├── modules/
+├── middleware/
+├── shared/
+├── utils/
+├── constants/
+└── types/
+```
+
+## Run Locally
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Create a `.env` file.
+
+3. Generate the Prisma client:
+
+```bash
+npx prisma generate
+```
+
+4. Start the development server:
+
+```bash
+npm run dev
+```
