@@ -1,46 +1,231 @@
-# File Management System
+# 📁 File Management System
 
-A backend API for managing files and folders.
+A production-ready backend API for securely uploading, organizing, and managing files.
 
-## Tech Stack
+Built with **Node.js**, **Express.js**, **TypeScript**, **PostgreSQL**, and **Prisma**, this project follows modern backend engineering practices such as modular architecture, authentication, centralized error handling, logging, validation, testing, and cloud storage integration.
 
-- Node.js
-- Express.js
-- TypeScript
-- Prisma
-- PostgreSQL
+---
 
-## Folder Structure
+## 🚀 Features
+
+- User Authentication (JWT)
+- Secure File Upload
+- Folder Management
+- File Sharing
+- Search & Pagination
+- AWS S3 Storage
+- Logging with Pino
+- Request Validation
+- Centralized Error Handling
+- Production-ready Project Structure
+
+---
+
+## 🛠 Tech Stack
+
+| Technology | Purpose |
+|------------|---------|
+| Node.js | Runtime |
+| Express.js | Web Framework |
+| TypeScript | Language |
+| PostgreSQL | Database |
+| Prisma | ORM |
+| Pino | Logging |
+| JWT | Authentication |
+| ESLint | Linting |
+| Prettier | Formatting |
+
+---
+
+## 📂 Project Structure
 
 ```text
 src/
+│
+├── app.ts
+├── server.ts
+│
 ├── config/
-├── modules/
-├── middleware/
-├── shared/
-├── utils/
 ├── constants/
-└── types/
+├── middleware/
+├── modules/
+├── shared/
+├── types/
+└── utils/
+
+prisma/
+tests/
+uploads/
 ```
 
-## Run Locally
+---
 
-1. Install dependencies:
+## 📋 Prerequisites
+
+- Node.js >= 20
+- PostgreSQL >= 15
+- npm
+
+---
+
+## ⚙️ Installation
+
+### Clone the repository
+
+```bash
+git clone <repository-url>
+cd file-management-system
+```
+
+### Install dependencies
 
 ```bash
 npm install
 ```
 
-2. Create a `.env` file.
+### Configure environment variables
 
-3. Generate the Prisma client:
+Create a `.env` file.
+
+```env
+PORT=5000
+
+DATABASE_URL=
+
+JWT_SECRET=
+
+REFRESH_SECRET=
+```
+
+### Generate Prisma Client
 
 ```bash
 npx prisma generate
 ```
 
-4. Start the development server:
+### Run Migrations
+
+```bash
+npx prisma migrate dev
+```
+
+### Start Development Server
 
 ```bash
 npm run dev
 ```
+
+---
+
+## 📜 Available Scripts
+
+```bash
+npm run dev        # Start development server
+npm run build      # Compile TypeScript
+npm run start      # Run production build
+npm run lint       # Run ESLint
+npm run format     # Format code
+npm run test       # Run tests
+```
+
+---
+
+## 🌐 API
+
+Base URL
+
+```
+http://localhost:5000/api/v1
+```
+
+Current Endpoints
+
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| GET | /health | Health Check |
+
+---
+
+## 🏗 Architecture
+
+The project follows a modular architecture.
+
+```
+Controller
+     │
+Service
+     │
+Repository (Prisma)
+     │
+PostgreSQL
+```
+
+Each module contains its own:
+
+- Controller
+- Service
+- Routes
+- Validation
+- Types
+
+---
+
+## 📌 Current Progress
+
+- ✅ Project Setup
+- ✅ Express Configuration
+- ✅ TypeScript Configuration
+- ✅ PostgreSQL Integration
+- ✅ Prisma ORM
+- ✅ Health Check Endpoint
+- 🚧 Logging
+- 🚧 Error Handling
+- 🚧 Validation
+
+---
+
+## 🗺 Roadmap
+
+- [x] Project Setup
+- [ ] Project Foundation
+- [ ] Authentication
+- [ ] Authorization
+- [ ] File Upload
+- [ ] Folder Management
+- [ ] Search & Pagination
+- [ ] File Sharing
+- [ ] AWS S3 Integration
+- [ ] Unit Testing
+- [ ] Integration Testing
+- [ ] Docker
+- [ ] CI/CD
+- [ ] Deployment
+
+---
+
+## 🔒 Security
+
+- JWT Authentication
+- Password Hashing (bcrypt)
+- Input Validation
+- Centralized Error Handling
+- Rate Limiting
+- Helmet
+- CORS Protection
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome.
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Commit your changes.
+4. Open a Pull Request.
+
+---
+
+## 📄 License
+
+This project is built for learning and demonstrating production-ready backend development practices.
