@@ -1,4 +1,4 @@
-import { config } from "./config/env";
+import { config } from "@/config/env";
 import app from "./app";
 
 const PORT = config.PORT;
