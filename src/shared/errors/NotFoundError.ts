@@ -2,7 +2,7 @@ import { AppError } from "@/shared/errors/AppError";
 
 export class NotFoundError extends AppError{
     constructor(message = "Resource Not Found"){
-        super(404, message);
+        super(message,404);
         Object.setPrototypeOf(this,NotFoundError.prototype);
     }
 }

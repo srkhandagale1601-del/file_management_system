@@ -6,4 +6,5 @@ const PORT = config.PORT;
 app.listen(PORT, () => {
   console.log(`Listening to Port ${PORT}`);
 });
+
 logger.info("Server Started ");
