@@ -1,6 +1,7 @@
 import { SuccessResponse, ErrorResponse } from "@/shared/responses/apiResponse";
 import bcrypt from "bcrypt";
 import prisma from "@/shared/database/prisma";
+import { errorResponse } from "@/shared/responses/response.handler";
 
 export class AuthService {
     async signup(
@@ -45,6 +46,50 @@ export class AuthService {
                 email: result.email
             }
         };
+    }
+
+    async login(
+        email: string,
+        password: string
+    ):Promise<SuccessResponse<{
+        id:string,
+        name:string,
+        email:string
+    }> | ErrorResponse>{
+        
+        const existingUser  =  await prisma.user.findUnique({
+            where:{
+                email            
+            }
+        });
+
+        if(!existingUser){
+            return {
+                success: false,
+                message: "User doesnt exists",
+                errors: []
+            };
+        }
+
+        const isPasswordCorrect = await bcrypt.compare(password,existingUser.passwordHash);
+
+        if(!isPasswordCorrect){
+            return {
+                success:false,
+                message:"Password is Incorrect",
+                errors: []
+            }
+        }
+
+        return {
+            success:true,
+            message:"User Login Successfully",
+            data:{
+                id:existingUser.id,
+                name:existingUser.name,
+                email: existingUser.email
+            }
+        }
     }
 }
 
