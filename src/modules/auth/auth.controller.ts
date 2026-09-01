@@ -30,6 +30,7 @@ export class AuthController {
 
     login = asyncHandler(async(req,res)=>{
         const validatedResult = loginSchema.safeParse(req.body);
+
         if(!validatedResult.success){
             const message = validatedResult.error.issues
                 .map(issue => issue.message).join(" , ");
