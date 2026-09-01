@@ -49,6 +49,27 @@ export class AuthController {
 
         res.status(201).json(result);
     });
+
+    logout = asyncHandler(async(req,res)=>{
+        const authHeader = req.headers.authorization;
+        if(!authHeader){
+            throw new AppError("Authorization header is required",401);
+        }
+        const[type,token] = authHeader.split(" ");
+
+        if(type != "Bearer" || !token){
+            throw new AppError("Invalid authorization format",401);
+        }
+
+        const result =  await authService.logout({token});
+
+        if(!result.success){
+            throw new AppError(result.message,401)
+        }
+
+        res.status(201).json(result);
+    });
+        
 }
 
 export default new AuthController();
