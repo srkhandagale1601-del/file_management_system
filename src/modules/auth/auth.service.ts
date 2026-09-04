@@ -1,11 +1,8 @@
 import { SuccessResponse, ErrorResponse } from "@/shared/responses/apiResponse";
 import bcrypt from "bcrypt";
 import prisma from "@/shared/database/prisma";
-import { errorResponse } from "@/shared/responses/response.handler";
 import jwt from "jsonwebtoken";
 import { config } from "@/config/env";
-import { success } from "zod";
-
 
 interface LogoutInput {
     token: string;
