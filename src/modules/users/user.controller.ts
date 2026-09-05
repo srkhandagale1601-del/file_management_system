@@ -28,8 +28,8 @@ export class UserController{
     });
 
     updateprofile  = asyncHandler(async(req,res)=>{
-        const authHeader = req.body.authorization;
-        const name = req.body;
+        const authHeader = req.headers.authorization;
+        const {name} = req.body;
         if(!authHeader){
                 throw new AppError("Authorization header is required",401);
         }

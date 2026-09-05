@@ -16,24 +16,15 @@ export class UserService {
         {
         try {
             const decoded = jwt.verify(token, config.JWT_SECRET) as {
-                id: string;
+                userId: string;
             };
 
-            const userId = decoded.id;
+            const userId = decoded.userId;
             const user = await prisma.user.update({
                 where: { id: userId },
                 data: { name },
             });
             
-        
-            if (!user) {
-                return {
-                    success: false,
-                    message: "User not found",
-                    errors: [],
-                };
-            }
-
             return {
                 success: true,
                 message: "Profile retrieved successfully",
@@ -44,6 +35,7 @@ export class UserService {
                 },
             };
         } catch (error) {
+            console.error("UPDATE PROFILE ERROR:", error);
             return {
                 success: false,
                 message: "Invalid or expired token",
