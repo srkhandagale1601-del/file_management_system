@@ -20,6 +20,7 @@ export class UserController{
             message: "User Details",
             data:{
                 id:user.id,
+                name:user.name,
                 email:user.email,
                 createdAt:  user.createdAt,
                 updatedAt:user.updatedAt
