@@ -4,7 +4,7 @@ import { registerSchema,loginSchema } from "./auth.validation";
 import { asyncHandler } from "@/utils/asyncHandler";
 
 export class AuthController {
-    signup = asyncHandler(async (req, res) => {
+    register = asyncHandler(async (req, res) => {
         const validatedResult = registerSchema.safeParse(req.body);
 
         if (!validatedResult.success) {
@@ -15,7 +15,7 @@ export class AuthController {
             throw new AppError(message, 400);
         }
 
-        const result = await authService.signup(
+        const result = await authService.register(
             validatedResult.data.name,
             validatedResult.data.email,
             validatedResult.data.password

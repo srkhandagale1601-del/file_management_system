@@ -8,7 +8,7 @@ interface LogoutInput {
     token: string;
 }
 export class AuthService {
-    async signup(
+    async register(
         name: string,
         email: string,
         password: string
