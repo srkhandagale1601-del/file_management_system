@@ -22,5 +22,14 @@ export class FileService {
             }
         });
     }
+
+    async getFileById({ id, userId }: { id: string; userId: string }) {
+        return await prisma.file.findFirst({
+            where: {
+                id,
+                userId,
+            },
+        });
+    }
 }
 export default new FileService();

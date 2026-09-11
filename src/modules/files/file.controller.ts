@@ -24,18 +24,40 @@ export class fileController {
     });
 
     getFiles = asyncHandler(async (req, res) => {
-    const files = await FileService.getFile(req.userId!);
+        const files = await FileService.getFile(req.userId!);
 
-    const response: SuccessResponse<typeof files> = {
-        success: true,
-        message: files.length
-            ? "Files fetched successfully"
-            : "No files found",
-        data: files,
-    };
+        const response: SuccessResponse<typeof files> = {
+            success: true,
+            message: files.length
+                ? "Files fetched successfully"
+                : "No files found",
+            data: files,
+        };
 
-    return res.status(200).json(response);
-});
+        return res.status(200).json(response);
+    });
+
+    getFileByID = asyncHandler(async (req, res) => {
+        const userId = req.userId;
+        const id = req.params.id;
+        if (!userId) {
+            return res.status(401).json({
+            message: "Unauthorized",
+            });
+        }
+
+        const file = await FileService.getFileById({
+            id,userId
+        });
+
+        if (!file) {
+            return res.status(404).json({
+            message: "File not found",
+            });
+        }
+
+        return res.status(200).json(file);
+    });
 }
 
 export default new fileController();
