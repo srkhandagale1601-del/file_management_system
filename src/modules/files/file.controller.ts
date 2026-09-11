@@ -1,5 +1,7 @@
 import { asyncHandler } from "@/utils/asyncHandler";
 import FileService  from "./file.service";
+import { SuccessResponse } from "@/shared/responses/apiResponse";
+import { file } from "zod";
 export class fileController {
     upload = asyncHandler(async (req, res) => {
         if (!req.file) {
@@ -20,6 +22,20 @@ export class fileController {
             data: file,
         });
     });
+
+    getFiles = asyncHandler(async (req, res) => {
+    const files = await FileService.getFile(req.userId!);
+
+    const response: SuccessResponse<typeof files> = {
+        success: true,
+        message: files.length
+            ? "Files fetched successfully"
+            : "No files found",
+        data: files,
+    };
+
+    return res.status(200).json(response);
+});
 }
 
 export default new fileController();

@@ -15,5 +15,12 @@ export class FileService {
 
         return createdFile;
     }
+    async getFile(userId:string){
+        return await prisma.file.findMany({
+            where:{
+                userId
+            }
+        });
+    }
 }
 export default new FileService();
