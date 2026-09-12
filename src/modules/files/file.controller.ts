@@ -58,6 +58,32 @@ export class fileController {
 
         return res.status(200).json(file);
     });
+
+    deleteFileByID = asyncHandler(async(req,res)=>{
+        const userId = req.userId;
+        const id = req.params.id;
+        if (!userId) {
+            return res.status(401).json({
+            message: "Unauthorized",
+            });
+        }
+        if(!id){
+            return res.status(404).json({message:"Enter the file id"});
+        }
+        const file = await FileService.deleteFileByID({
+            id,userId
+        });
+
+        if (!file) {
+            return res.status(404).json({
+            message: "File not found",
+            });
+        }
+
+        return res.status(200).json({
+            message: "File Deleted Successfully"
+        });
+    });
 }
 
 export default new fileController();

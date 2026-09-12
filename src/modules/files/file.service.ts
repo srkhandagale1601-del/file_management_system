@@ -31,5 +31,23 @@ export class FileService {
             },
         });
     }
+
+    async deleteFileByID({id, userId}: {id:string,userId:string}){
+        const file =  await prisma.file.findFirst({
+            where:{
+                id,userId
+            }
+        });
+
+        if(!file){
+            return null;
+        }
+
+        return await prisma.file.delete({
+            where:{
+                id
+            }
+        });
+    }
 }
 export default new FileService();
