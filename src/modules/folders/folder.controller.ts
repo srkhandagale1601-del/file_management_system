@@ -27,6 +27,28 @@ export class FolderController {
             folder
         });
     });
+
+    getFolder = asyncHandler(async(req,res)=>{
+        const userId = req.userId;
+
+        if (!userId) {
+            res.status(401).json({
+                success: false,
+                message: "Unauthorized"
+            });
+            return;
+        }
+
+        const folder = await FolderService.getFolder({
+            userId
+        });
+
+        res.status(201).json({
+            success: true,
+            message: "Folder found successfully",
+            folder
+        });
+    });
 }
 
 export default new FolderController();

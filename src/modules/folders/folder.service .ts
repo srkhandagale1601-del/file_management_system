@@ -4,6 +4,7 @@ interface CreateFolderData{
     parentId? :string,
     userId:string
 }
+
 export class FolderService{
     async create({name,parentId,userId}:CreateFolderData) {
         const createFolder = await prisma.folder.create({
@@ -14,6 +15,14 @@ export class FolderService{
             }
         });
         return createFolder;
+    }
+    async getFolder({userId}: {userId: string}){
+        const getFolder = await prisma.folder.findMany({
+            where:{
+                userId
+            }
+        })
+        return getFolder;
     }
 }
 
