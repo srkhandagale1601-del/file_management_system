@@ -24,6 +24,15 @@ export class FolderService{
         })
         return getFolder;
     }
+    async getFolderById({userId,id}:{userId:string,id:string}){
+        const getFolderById = await prisma.folder.findUnique({
+            where:{
+                id,
+                userId,
+            }
+        });
+        return getFolderById;
+    }
 }
 
 export default new FolderService();
