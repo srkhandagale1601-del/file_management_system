@@ -1,10 +1,32 @@
 import { asyncHandler } from "@/utils/asyncHandler";
+import FolderService from "./folder.service ";
 
-export class FolderController{
-    upload =  asyncHandler(async(req,res)=>{
+export class FolderController {
+    create = asyncHandler(async (req, res) => {
+        const { name, parentId } = req.body;
 
+        const userId = req.userId;
+
+        if (!userId) {
+            res.status(401).json({
+                success: false,
+                message: "Unauthorized"
+            });
+            return;
+        }
+
+        const folder = await FolderService.create({
+            name,
+            parentId,
+            userId
+        });
+
+        res.status(201).json({
+            success: true,
+            message: "Folder created successfully",
+            folder
+        });
     });
 }
-
 
 export default new FolderController();
