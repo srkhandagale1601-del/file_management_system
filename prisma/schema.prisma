@@ -11,14 +11,15 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
 model User {
-  id           String   @id @default(uuid())
+  id           String @id @default(uuid())
   name         String
-  email        String   @unique
+  email        String @unique
   passwordHash String
 
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   files File[]
 
@@ -28,6 +29,7 @@ model User {
 model File {
   id           String   @id @default(uuid())
   userId       String
+  folderId     String?
   originalName String
   storedName   String
   mimeType     String
@@ -36,19 +38,29 @@ model File {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  folder Folder? @relation(fields: [folderId], references: [id], onDelete: Restrict)
 
   @@index([userId])
+  @@index([folderId])
 }
-model Folder{
-  id String @id @default(uuid())
-  userId String
-  name String
+
+model Folder {
+  id       String  @id @default(uuid())
+  userId   String
+  name     String
   parentId String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+  user  User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  files File[]
+
+  parent Folder? @relation("FolderHierarchy", fields: [parentId], references: [id], onDelete: Restrict)
+
+  children Folder[] @relation("FolderHierarchy")
+
   @@index([userId])
+  @@index([parentId])
 }

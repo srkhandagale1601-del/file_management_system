@@ -1,10 +1,11 @@
 import prisma from "@/shared/database/prisma";
 
 export class FileService {
-    async upload(userId: string | undefined, file: Express.Multer.File) {
+    async upload(userId: string | undefined, file: Express.Multer.File, folderId: string | null) {
         const createdFile = await prisma.file.create({
             data: {
                 userId,
+                folderId: folderId || null,
                 originalName: file.originalname,
                 storedName: file.filename,
                 mimeType: file.mimetype,

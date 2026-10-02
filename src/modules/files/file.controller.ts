@@ -1,5 +1,5 @@
 import { asyncHandler } from "@/utils/asyncHandler";
-import FileService  from "./file.service";
+import FileService from "./file.service";
 import { SuccessResponse } from "@/shared/responses/apiResponse";
 import { file } from "zod";
 export class fileController {
@@ -11,9 +11,15 @@ export class fileController {
             });
         }
 
+        console.log("BODY:", req.body);
+        console.log("FOLDER ID:", req.body.folderId);
+
+        const folderId = req.body.folderId || null;
+
         const file = await FileService.upload(
             req.userId,
-            req.file
+            req.file,
+            folderId
         );
 
         return res.status(201).json({
@@ -42,41 +48,41 @@ export class fileController {
         const id = req.params.id;
         if (!userId) {
             return res.status(401).json({
-            message: "Unauthorized",
+                message: "Unauthorized",
             });
         }
 
         const file = await FileService.getFileById({
-            id,userId
+            id, userId
         });
 
         if (!file) {
             return res.status(404).json({
-            message: "File not found",
+                message: "File not found",
             });
         }
 
         return res.status(200).json(file);
     });
 
-    deleteFileByID = asyncHandler(async(req,res)=>{
+    deleteFileByID = asyncHandler(async (req, res) => {
         const userId = req.userId;
         const id = req.params.id;
         if (!userId) {
             return res.status(401).json({
-            message: "Unauthorized",
+                message: "Unauthorized",
             });
         }
-        if(!id){
-            return res.status(404).json({message:"Enter the file id"});
+        if (!id) {
+            return res.status(404).json({ message: "Enter the file id" });
         }
         const file = await FileService.deleteFileByID({
-            id,userId
+            id, userId
         });
 
         if (!file) {
             return res.status(404).json({
-            message: "File not found",
+                message: "File not found",
             });
         }
 
